@@ -48,7 +48,7 @@ export class VehicleService {
   }
 
   async purchaseVehicle(id: string): Promise<Vehicle> {
-    return prisma.\(async (tx) => {
+    return prisma.$transaction(async (tx) => {
       const vehicle = await tx.vehicle.findUnique({ where: { id } });
       if (!vehicle) throw new Error('Vehicle not found');
       if (vehicle.quantity <= 0) throw new Error('Vehicle out of stock');
